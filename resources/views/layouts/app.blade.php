@@ -37,17 +37,12 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('employees.create') }} ">{{ __('Dodaj pracownika') }}</a>
                                 </li>
-                            @endif
-
-                            @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('employees.index') }} ">{{ __('Lista pracowników') }}</a>
                                 </li>
-                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -76,5 +71,40 @@
             @yield('content')
         </main>
     </div>
+
+
+    @stack('scripts')
+        <script>
+            function addPhoneNumberField() {
+
+            const container = document.getElementById('phoneNumbersContainer');
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mt-2';
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = `phone_numbers[]`;
+            input.required = true;
+            input.className = 'form-control';
+            input.value = '';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-danger';
+            button.textContent = 'Usuń';
+            button.onclick = function () {
+            container.removeChild(inputGroup);
+        };
+
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(button);
+
+            container.appendChild(inputGroup);
+        }
+            function removePhoneNumberField(button) {
+                var inputGroup = button.closest('.input-group');
+                inputGroup.remove();
+            }
+    </script>
 </body>
 </html>

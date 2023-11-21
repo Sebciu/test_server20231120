@@ -3,8 +3,13 @@
 
 @section('content')
     <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success fade show" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <h2>Dodaj nowego użytkownika</h2>
-        <form action="{{ route('user.store') }}" method="post">
+        <form action="{{ route('users.store') }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="name">Imię:</label>
